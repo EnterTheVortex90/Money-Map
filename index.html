@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#17261f" />
+    <meta name="description" content="A simple monthly bill and rent reminder." />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Money Map</title>
+  </head>
+  <body>
+    <section class="splash-screen" id="splashScreen" aria-label="Loading Money Map">
+      <div class="splash-mark" aria-hidden="true"><span>MM</span><b>✦</b></div>
+      <p>Money Map</p>
+      <i></i>
+    </section>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">YOUR MONTHLY MONEY PLANNER</p>
+          <h1>Money Map <span>✦</span></h1>
+        </div>
+        <div class="header-actions">
+          <button class="icon-button" id="historyButton" aria-label="Open monthly history">◷</button>
+          <button class="icon-button" id="settingsButton" aria-label="Open settings">⚙</button>
+        </div>
+      </header>
+
+      <section class="month-picker" aria-label="Selected month">
+        <button id="previousMonth" aria-label="Previous month">←</button>
+        <h2 id="monthTitle"></h2>
+        <button id="nextMonth" aria-label="Next month">→</button>
+      </section>
+
+      <section class="hero-card">
+        <div>
+          <p class="card-label">LEFT AFTER PLANNED PAYMENTS</p>
+          <p class="balance" id="leftover">£0.00</p>
+          <p class="muted" id="summaryLine"></p>
+        </div>
+        <div class="balance-ring" aria-hidden="true"><span>PLAN</span><strong id="percentage">0%</strong></div>
+      </section>
+
+      <section class="totals-grid" aria-label="Monthly totals">
+        <article><p>Expected in</p><strong id="incomeTotal">£0.00</strong><small>Wage + partner</small></article>
+        <article><p>Planned out</p><strong id="outgoingTotal">£0.00</strong><small>Bills + rent</small></article>
+        <article><p>Bills due this month</p><strong id="billsTotal">£0.00</strong><small id="billsCount">0 payments scheduled</small></article>
+      </section>
+
+      <section class="section-heading">
+        <div><p class="eyebrow">COMING UP</p><h2>Payments this month</h2></div>
+        <button class="text-button" id="notifyButton">Enable reminders</button>
+      </section>
+      <p class="notice" id="notificationStatus">Desktop testing: reminders can be previewed here. Reliable closed-app reminders need web push when deployed.</p>
+      <section class="next-up" id="nextUp" aria-live="polite"></section>
+      <div class="view-switch" role="group" aria-label="Payment view"><button class="active" id="listViewButton">List</button><button id="calendarViewButton">Calendar</button></div>
+      <section id="calendarView" class="calendar-view" hidden aria-label="Monthly payment calendar"></section>
+      <section id="paymentList" class="payment-list" aria-live="polite"></section>
+    </main>
+
+    <dialog id="settingsDialog">
+      <form method="dialog" id="settingsForm">
+        <div class="dialog-header"><div><p class="eyebrow">EDIT PLAN</p><h2>Monthly setup</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div>
+        <p class="form-note">Changes are saved only in this browser for now.</p>
+        <h3 class="form-section-title">Look & feel</h3>
+        <div class="appearance-controls">
+          <label>Colour theme <span class="select-with-preview"><select id="themeSelect" aria-label="Colour theme"><option value="sage">Sage</option><option value="ocean">Ocean</option><option value="plum">Plum</option></select><span class="theme-preview" id="themePreview" aria-hidden="true"></span></span></label>
+          <label class="toggle-label">Dark mode <input type="checkbox" id="darkModeInput" role="switch"><span class="toggle-track" aria-hidden="true"></span></label>
+        </div>
+        <h3 class="form-section-title">Income & rent</h3>
+        <div class="form-grid">
+          <label>Monthly wage <input id="wageInput" type="number" min="0" step="0.01" /></label>
+          <label>Partner's rent contribution <input id="partnerInput" type="number" min="0" step="0.01" /></label>
+          <label>Your rent payment <input id="rentTwoInput" type="number" min="0" step="0.01" /></label>
+        </div>
+        <div class="editor-heading"><div><h3 class="form-section-title">Regular bills</h3><p class="form-note">Bills move to the next working day if they fall on a weekend or bank holiday.</p></div><button type="button" class="add-bill" id="addBill">+ Add bill</button></div>
+        <div id="billEditor" class="bill-editor"></div>
+        <h3 class="form-section-title">Backup & history</h3>
+        <p class="form-note">Back up your plan before clearing browser data. A monthly snapshot keeps a simple record of this month’s totals.</p>
+        <div class="backup-actions"><button type="button" class="secondary" id="saveSnapshot">Save month snapshot</button><button type="button" class="secondary" id="exportBackup">Export backup</button><label class="secondary import-label">Import backup<input id="importBackup" type="file" accept="application/json"></label></div>
+        <div class="dialog-actions"><button class="secondary" value="cancel">Cancel</button><button class="primary" id="saveSettings" value="default" disabled>Save changes</button></div>
+      </form>
+    </dialog>
+    <dialog id="detailsDialog"><form method="dialog" id="detailsForm"><div class="dialog-header"><div><p class="eyebrow">BILL DETAILS</p><h2 id="detailsTitle">Bill</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div><div class="form-grid"><label>Payment method <input id="detailsMethod" placeholder="e.g. Direct Debit" /></label><label>Reference <input id="detailsReference" placeholder="Optional reference" /></label></div><label>Notes <input id="detailsNotes" placeholder="Anything useful to remember" /></label><div class="dialog-actions"><button class="primary" id="saveDetails" value="default">Save details</button></div></form></dialog>
+    <dialog id="historyDialog"><form method="dialog"><div class="dialog-header"><div><p class="eyebrow">YOUR RECORD</p><h2>Monthly history</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div><p class="form-note">Snapshots are saved manually from Settings. They remain only in this browser unless included in a backup.</p><div id="historyList" class="history-list"></div></form></dialog>
+    <script src="app.js"></script>
+  </body>
+</html>
