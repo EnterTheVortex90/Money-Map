@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#17261f" />
     <meta name="description" content="A simple monthly bill and rent reminder." />
-    <link rel="manifest" href="manifest.webmanifest?v=24" />
+    <link rel="manifest" href="manifest.webmanifest?v=25" />
     <link rel="icon" href="icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="icon.svg" />
-    <link rel="stylesheet" href="styles.css?v=24" />
+    <link rel="stylesheet" href="styles.css?v=25" />
     <title>Money Map</title>
   </head>
   <body>
@@ -80,12 +80,12 @@
         <div id="billEditor" class="bill-editor"></div>
         <h3 class="form-section-title">Backup & history</h3>
         <p class="form-note">Back up your plan before clearing browser data. A monthly snapshot keeps a simple record of this month’s totals.</p>
-        <div class="backup-actions"><button type="button" class="secondary" id="saveSnapshot">Save month snapshot</button><button type="button" class="secondary" id="exportBackup">Export backup</button><label class="secondary import-label">Import backup<input id="importBackup" type="file" accept="application/json"></label></div>
+        <div class="backup-actions"><button type="button" class="secondary" id="saveSnapshot">Save month snapshot</button><button type="button" class="secondary" id="exportBackup">Export backup</button><label class="secondary import-label">Import backup<input id="importBackup" type="file" accept="application/json"></label><button type="button" class="secondary reset-button" id="resetLocalData">Reset all local data</button></div>
         <div class="dialog-actions"><button class="secondary" value="cancel">Cancel</button><button class="primary" id="saveSettings" value="default" disabled>Save changes</button></div>
       </form>
     </dialog>
     <dialog id="detailsDialog"><form method="dialog" id="detailsForm"><div class="dialog-header"><div><p class="eyebrow">BILL DETAILS</p><h2 id="detailsTitle">Bill</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div><div class="form-grid"><label>Payment method <input id="detailsMethod" placeholder="e.g. Direct Debit" /></label><label>Reference <input id="detailsReference" placeholder="Optional reference" /></label></div><label>Notes <input id="detailsNotes" placeholder="Anything useful to remember" /></label><div class="dialog-actions"><button class="primary" id="saveDetails" value="default">Save details</button></div></form></dialog>
     <dialog id="historyDialog"><form method="dialog"><div class="dialog-header"><div><p class="eyebrow">YOUR RECORD</p><h2>Monthly history</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div><p class="form-note">Snapshots are saved manually from Settings. They remain only in this browser unless included in a backup.</p><div id="historyList" class="history-list"></div></form></dialog>
-    <script src="app.js?v=24"></script>
+    <script src="app.js?v=25"></script>
   </body>
 </html>
