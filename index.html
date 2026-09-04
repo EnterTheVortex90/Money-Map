@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#17261f" />
     <meta name="description" content="A simple monthly bill and rent reminder." />
-    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="manifest" href="manifest.webmanifest?v=24" />
     <link rel="icon" href="icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="icon.svg" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=24" />
     <title>Money Map</title>
   </head>
   <body>
@@ -54,7 +54,7 @@
         <div><p class="eyebrow">COMING UP</p><h2>Payments this month</h2></div>
         <button class="text-button" id="notifyButton">Enable reminders</button>
       </section>
-      <p class="notice" id="notificationStatus">Desktop testing: reminders can be previewed here. Reliable closed-app reminders need web push when deployed.</p>
+      <p class="notice" id="notificationStatus">Your payment plan is saved privately in this browser. Scheduled notifications will be added next.</p>
       <section class="next-up" id="nextUp" aria-live="polite"></section>
       <div class="view-switch" role="group" aria-label="Payment view"><button class="active" id="listViewButton">List</button><button id="calendarViewButton">Calendar</button></div>
       <section id="calendarView" class="calendar-view" hidden aria-label="Monthly payment calendar"></section>
@@ -86,6 +86,6 @@
     </dialog>
     <dialog id="detailsDialog"><form method="dialog" id="detailsForm"><div class="dialog-header"><div><p class="eyebrow">BILL DETAILS</p><h2 id="detailsTitle">Bill</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div><div class="form-grid"><label>Payment method <input id="detailsMethod" placeholder="e.g. Direct Debit" /></label><label>Reference <input id="detailsReference" placeholder="Optional reference" /></label></div><label>Notes <input id="detailsNotes" placeholder="Anything useful to remember" /></label><div class="dialog-actions"><button class="primary" id="saveDetails" value="default">Save details</button></div></form></dialog>
     <dialog id="historyDialog"><form method="dialog"><div class="dialog-header"><div><p class="eyebrow">YOUR RECORD</p><h2>Monthly history</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div><p class="form-note">Snapshots are saved manually from Settings. They remain only in this browser unless included in a backup.</p><div id="historyList" class="history-list"></div></form></dialog>
-    <script src="app.js"></script>
+    <script src="app.js?v=24"></script>
   </body>
 </html>
